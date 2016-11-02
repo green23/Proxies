@@ -32,8 +32,8 @@ class ProxySpider(object):
             sqlHelper = MongoHelper()
             print 'validator beginning -------'
             validator = Validator(sqlHelper)
-            # count = validator.run_db()
-            count = sqlHelper.selectCount()
+            count = validator.run_db()
+            # count = sqlHelper.selectCount()
             print 'validator end ----count=%s' % count
             if count < MINNUM:
                 proxys = self.crawl_pool.map(self.crawl, parserList)

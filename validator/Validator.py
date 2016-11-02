@@ -71,7 +71,7 @@ class Validator(object):
             r = requests.get(url=TEST_URL, headers=config.HEADER, timeout=config.TIMEOUT, proxies=proxies)
 
             if not r.ok:
-                self.sqlHelper.delete({'ip': ip, 'port': port})
+                self.sqlHelper.delete({'ip': ip, 'port': int(port)})
                 print 'delete %s:%s' % (ip, port)
             else:
                 speed = round(time.time() - start, 2)
@@ -80,7 +80,7 @@ class Validator(object):
                 self.sqlHelper.update(old, new)
                 print 'success ip = %s,speed = %s' % (ip, speed)
         except Exception, e:
-            self.sqlHelper.delete({'ip': ip, 'port': port})
+            self.sqlHelper.delete({'ip': ip, 'port': int(port)})
 
     def detect_list(self, proxy):
         '''
