@@ -21,12 +21,12 @@ class MongoHelper(object):
 
     def insert(self, value):
         if isinstance(value, dict):
-            self.collect.insert_one(value)
+            self.collect.upsert(value)
 
     def batch_insert(self, values):
         if isinstance(values, list):
             data = [value for value in values if value is not None]
-            self.collect.insert(data)
+            self.collect.upsert(data)
 
     def delete(self, value):
         # self.collect.remove({'updatetime': {'$lt': date}})
@@ -36,7 +36,7 @@ class MongoHelper(object):
         pass
 
     def update(self, old, new):
-        self.collect.update(old, new)
+        self.collect.update(old, new, upsert=True)
 
     def selectAll(self):
         return self.collect.find()

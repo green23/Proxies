@@ -50,7 +50,9 @@ class ProxySpider(object):
                 print 'end_proxys--%s', len(proxys)
                 print 'spider proxys -------%s' % type(proxys)
                 proxys = validator.run_list(proxys)  # 这个是检测后的ip地址
-                sqlHelper.batch_insert(proxys)
+                proxys = [value for value in proxys if value is not None]
+                for proxy in proxys:
+                    sqlHelper.update({'ip': proxy['ip'], 'port': proxy['port']}, proxy)
                 print 'success ip = %s' % sqlHelper.selectCount()
             print 'spider end -------'
             time.sleep(UPDATE_TIME)

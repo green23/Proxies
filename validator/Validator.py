@@ -53,7 +53,7 @@ class Validator(object):
         删除旧的数据
         :return:
         '''
-        condition = datetime.datetime.now() - datetime.timedelta(minutes=config.MAXTIME).strftime('%Y-%m-%d %H:%M:%S')
+        condition = datetime.datetime.now() - datetime.timedelta(minutes=config.MAXTIME)
         value = {'updatetime': {'$lt': condition}}
         self.sqlHelper.delete(value)
 
@@ -75,9 +75,10 @@ class Validator(object):
                 print 'delete %s:%s' % (ip, port)
             else:
                 speed = round(time.time() - start, 2)
+                result['speed'] = speed
                 old = {'ip': ip, 'port': port}
-                new = {'ip': ip, 'port': port, 'speed': speed}
-                self.sqlHelper.update(old, new)
+                # new = {'ip': ip, 'port': port, 'speed': speed}
+                self.sqlHelper.update(old, result)
                 print 'success ip = %s,speed = %s' % (ip, speed)
         except Exception, e:
             self.sqlHelper.delete({'ip': ip, 'port': int(port)})

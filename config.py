@@ -12,7 +12,7 @@ ip，端口，类型(0高匿名，1透明)，protocol(0 http,1 https),country(�
 '''
 parserList = [
     {
-        'urls': ['http://www.66ip.cn/%s.html' % n for n in ['index'] + range(2, 12)],
+        'urls': ['http://www.66ip.cn/%s.html' % n for n in ['index'] + range(2, 4)],
         'type': 'xpath',
         'pattern': ".//*[@id='main']/div/div[1]/table/tr[position()>1]",
         'postion': {'ip': './td[1]', 'port': './td[2]', 'type': './td[4]', 'protocol': ''}
