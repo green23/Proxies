@@ -1,7 +1,5 @@
-#coding:utf-8
+# coding: utf-8
 from lxml import etree
-
-__author__ = 'Xaxdus'
 
 html='''
 

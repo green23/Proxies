@@ -1,7 +1,5 @@
-#coding:utf-8
+# coding: utf-8
 import logging
-
-__author__ = 'Xaxdus'
 
 
 logger = logging.getLogger()

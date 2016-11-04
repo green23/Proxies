@@ -47,10 +47,11 @@ class ProxySpider(object):
                 # 这个时候proxys的格式是[{},{},{},{},{},{}]
                 # 这个时候开始去重:
                 proxys = [dict(t) for t in set([tuple(proxy.items()) for proxy in proxys])]
-                print 'end_proxys--%s', len(proxys)
+
                 print 'spider proxys -------%s' % type(proxys)
                 proxys = validator.run_list(proxys)  # 这个是检测后的ip地址
                 proxys = [value for value in proxys if value is not None]
+                print 'end_proxys--%s', len(proxys)
                 for proxy in proxys:
                     sqlHelper.update({'ip': proxy['ip'], 'port': proxy['port']}, proxy)
                 print 'success ip = %s' % sqlHelper.selectCount()
