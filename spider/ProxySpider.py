@@ -2,6 +2,7 @@
 from gevent.pool import Pool
 import requests
 import time
+import datetime
 import config
 from config import THREADNUM, parserList, MINNUM, UPDATE_TIME
 from db.SQLiteHelper import SqliteHelper
@@ -25,7 +26,7 @@ class ProxySpider(object):
         # self.sqlHelper = sqlHelper
 
     def run(self):
-        dbtype = {'Mongo': MongoHelper, 'Sqlite': SqliteHelper}
+        # dbtype = {'Mongo': MongoHelper, 'Sqlite': SqliteHelper}
         while True:
             print 'spider beginning -------'
             # sqlHelper = SqliteHelper()
@@ -53,7 +54,12 @@ class ProxySpider(object):
                 proxys = [value for value in proxys if value is not None]
                 print 'end_proxys--%s', len(proxys)
                 for proxy in proxys:
-                    sqlHelper.update({'ip': proxy['ip'], 'port': proxy['port']}, proxy)
+                    exist = sqlHelper.selectOne({'ip': proxy['ip'], 'port': proxy['port'], 'type': proxy['type']})
+                    if exist:
+                        sqlHelper.update(exist, {'$set': {'updatetime': datetime.datetime.now()}})
+                    else:
+
+                        sqlHelper.update({'ip': proxy['ip'], 'port': proxy['port']}, proxy)
                 print 'success ip = %s' % sqlHelper.selectCount()
             print 'spider end -------'
             time.sleep(UPDATE_TIME)

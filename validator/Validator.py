@@ -54,7 +54,7 @@ class Validator(object):
         :return:
         '''
         condition = datetime.datetime.now() - datetime.timedelta(minutes=config.MAXTIME)
-        value = {'updatetime': {'$lt': condition}}
+        value = {'createtime': {'$lt': condition}}
         self.sqlHelper.delete(value)
 
     def detect_db(self, result):
@@ -75,10 +75,7 @@ class Validator(object):
                 print 'delete %s:%s' % (ip, port)
             else:
                 speed = round(time.time() - start, 2)
-                result['speed'] = speed
-                old = {'ip': ip, 'port': port}
-                # new = {'ip': ip, 'port': port, 'speed': speed}
-                self.sqlHelper.update(old, result)
+                self.sqlHelper.update(result, {"$set": {'speed': speed, 'updatetime': datetime.datetime.now()}})
                 print 'success ip = %s,speed = %s' % (ip, speed)
         except Exception, e:
             self.sqlHelper.delete({'ip': ip, 'port': int(port)})

@@ -54,7 +54,8 @@ class Html_Parser(object):
 
                 # proxy ={'ip':ip,'port':int(port),'type':int(type),'protocol':int(protocol),'country':country,'area':area,'updatetime':updatetime,'speed':100}
                 proxy = {'ip': ip, 'port': int(port), 'type': int(type), 'protocol': int(protocol), 'country': country,
-                         'area': area, 'speed': 100, 'updatetime': datetime.datetime.now()}
+                         'area': area, 'speed': 100, 'createtime': datetime.datetime.now(),
+                         'updatetime': datetime.datetime.now()}
                 # print proxy
                 proxylist.append(proxy)
 
