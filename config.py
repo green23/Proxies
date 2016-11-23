@@ -31,7 +31,7 @@ parserList = [
     },
     {
         'urls': ['http://www.kuaidaili.com/free/%s/%s/' % (m, n) for m in ['inha', 'intr', 'outha', 'outtr'] for n in
-                 range(1, 11)],
+                 range(1, 30)],
         'type': 'xpath',
         'pattern': ".//*[@id='list']/table/tbody/tr[position()>0]",
         'postion': {'ip': './td[1]', 'port': './td[2]', 'type': './td[3]', 'protocol': './td[4]'}
@@ -45,7 +45,7 @@ parserList = [
 
     },
     {
-        'urls': ['http://www.ip181.com/daili/%s.html' % n for n in range(1, 11)],
+        'urls': ['http://www.ip181.com/daili/%s.html' % n for n in range(1, 30)],
         'type': 'xpath',
         'pattern': "html/body/div[2]/div/div[2]/div/div[3]/table/tbody/tr[position()>1]",
         'postion': {'ip': './td[1]', 'port': './td[2]', 'type': './td[3]', 'protocol': './td[4]'}
@@ -89,7 +89,7 @@ API_PORT = 8000
 '''
 UPDATE_TIME = 60 * 60  # 每半个小时检测一次是否有代理ip失效
 MINNUM = 200  # 当有效的ip值小于一个时 需要启动爬虫进行爬取
-MAXTIME = 24 * 60  # 当爬取存储开始一直使用的最大时间，如果超过这个时间，都删除
+MAXTIME = 5 * 24 * 60  # 当爬取存储开始一直使用的最大时间，如果超过这个时间，都删除
 
 TIMEOUT = 10  # socket延时
 
@@ -151,4 +151,4 @@ HEADER = {
     'Accept-Encoding': 'gzip, deflate',
 }
 
-TEST_URL = 'http://tw.51240.com/'
+TEST_URL = 'http://www.douban.com'

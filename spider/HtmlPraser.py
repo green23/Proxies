@@ -25,39 +25,43 @@ class Html_Parser(object):
             root = etree.HTML(response)
             proxys = root.xpath(parser['pattern'])
             for proxy in proxys:
-                ip = proxy.xpath(parser['postion']['ip'])[0].text
-                port = proxy.xpath(parser['postion']['port'])[0].text
-                type = proxy.xpath(parser['postion']['type'])[0].text
-                if type.find(u'高匿') != -1:
-                    type = 0
-                else:
-                    type = 1
-                protocol = ''
-                if len(parser['postion']['protocol']) > 0:
-                    protocol = proxy.xpath(parser['postion']['protocol'])[0].text
-                    if protocol.lower().find('https') != -1:
-                        protocol = 1
+                try:
+                    ip = proxy.xpath(parser['postion']['ip'])[0].text
+                    port = proxy.xpath(parser['postion']['port'])[0].text
+                    type = proxy.xpath(parser['postion']['type'])[0].text
+                    if type.find(u'高匿') != -1:
+                        type = 0
+                    else:
+                        type = 1
+                    protocol = ''
+                    if len(parser['postion']['protocol']) > 0:
+                        protocol = proxy.xpath(parser['postion']['protocol'])[0].text
+                        if protocol.lower().find('https') != -1:
+                            protocol = 1
+                        else:
+                            protocol = 0
                     else:
                         protocol = 0
-                else:
-                    protocol = 0
-                addr = self.ips.getIpAddr(self.ips.str2ip(ip))
-                country = ''
-                area = ''
-                if addr.find(u'省') != -1 or self.AuthCountry(addr):
-                    country = u'中国'
-                    area = addr
-                else:
-                    country = addr
+                        # print response
+                    addr = self.ips.getIpAddr(self.ips.str2ip(ip))
+                    country = ''
                     area = ''
-                # ip，端口，类型(0高匿名，1透明)，protocol(0 http,1 https http),country(国家),area(省市),updatetime(更新时间)
+                    if addr.find(u'省') != -1 or self.AuthCountry(addr):
+                        country = u'中国'
+                        area = addr
+                    else:
+                        country = addr
+                        area = ''
+                    # ip，端口，类型(0高匿名，1透明)，protocol(0 http,1 https http),country(国家),area(省市),updatetime(更新时间)
 
-                # proxy ={'ip':ip,'port':int(port),'type':int(type),'protocol':int(protocol),'country':country,'area':area,'updatetime':updatetime,'speed':100}
-                proxy = {'ip': ip, 'port': int(port), 'type': int(type), 'protocol': int(protocol), 'country': country,
-                         'area': area, 'speed': 100, 'createtime': datetime.datetime.now(),
-                         'updatetime': datetime.datetime.now()}
-                # print proxy
-                proxylist.append(proxy)
+                    # proxy ={'ip':ip,'port':int(port),'type':int(type),'protocol':int(protocol),'country':country,'area':area,'updatetime':updatetime,'speed':100}
+                    proxy = {'ip': ip, 'port': int(port), 'type': int(type), 'protocol': int(protocol), 'country': country,
+                             'area': area, 'speed': 100, 'createtime': datetime.datetime.now(),
+                             'updatetime': datetime.datetime.now()}
+                    # print proxy
+                    proxylist.append(proxy)
+                except Exception as err:
+                    print err
 
             return proxylist
 

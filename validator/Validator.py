@@ -54,7 +54,7 @@ class Validator(object):
         :return:
         '''
         condition = datetime.datetime.now() - datetime.timedelta(minutes=config.MAXTIME)
-        value = {'createtime': {'$lt': condition}}
+        value = {'updatetime': {'$lt': condition}}
         self.sqlHelper.delete(value)
 
     def detect_db(self, result):
