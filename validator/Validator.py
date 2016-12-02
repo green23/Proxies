@@ -72,11 +72,11 @@ class Validator(object):
 
             if not r.ok:
                 self.sqlHelper.delete({'ip': ip, 'port': int(port)})
-                print 'delete %s:%s' % (ip, port)
+                # print 'delete %s:%s' % (ip, port)
             else:
                 speed = round(time.time() - start, 2)
                 self.sqlHelper.update(result, {"$set": {'speed': speed, 'updatetime': datetime.datetime.now()}})
-                print 'success ip = %s,speed = %s' % (ip, speed)
+                # print 'success ip = %s,speed = %s' % (ip, speed)
         except Exception, e:
             self.sqlHelper.delete({'ip': ip, 'port': int(port)})
 
@@ -98,7 +98,7 @@ class Validator(object):
 
             else:
                 speed = round(time.time() - start, 2)
-                print 'success ip = %s, speed = %s' % (ip, speed)
+                # print 'success ip = %s, speed = %s' % (ip, speed)
                 proxy['speed'] = speed
         except Exception, e:
             proxy = None

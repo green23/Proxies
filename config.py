@@ -70,7 +70,7 @@ DB_CONFIG = {
     'dbUser': '',  # 用户名
     'dbPass': '',  # 密码
     'dbName': 'proxy',  # 数据库名称
-    'dbCollect': 'taiwan'
+    'dbCollect': 'douban'
 
 }
 
